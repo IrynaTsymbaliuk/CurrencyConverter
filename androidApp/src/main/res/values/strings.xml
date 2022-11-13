@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Home screen -->
+    <string name="currency_converter">Currency converter</string>
+    <string name="country_code">Country code</string>
+    <string name="amount">Amount</string>
+    <string name="swap">Swap</string>
+
+</resources>
