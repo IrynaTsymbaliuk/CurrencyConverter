@@ -1,6 +1,6 @@
 package com.tsymbaliuk.currency.converter.android.ui.theme
 
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 
 @Composable
@@ -8,7 +8,9 @@ fun AppTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
-        colors = AppColors,
+        colorScheme = AppColors,
+        shapes = AppShapes,
+        typography = AppTypography,
         content = content
     )
 }

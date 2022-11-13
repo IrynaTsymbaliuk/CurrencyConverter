@@ -1,24 +1,24 @@
 package com.tsymbaliuk.currency.converter.android.ui.theme
 
-import androidx.compose.material.lightColors
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
-val Red = Color(0xFFB71C1C)
-val RedLight = Color(0xFFF05545)
-val RedDark = Color(0xFF7F0000)
+val Green = Color(0xFF006064)
+val GreenLight = Color(0xFF428e92)
+val GreenDark = Color(0xFF00363A)
 
-val Grey = Color(0xFFFAFAFA)
+val Grey = Color(0xFFEEEEEE)
 val GreyLight = Color(0xFFFFFFFF)
-val GreyDark = Color(0xFFC7C7C7)
+val GreyDark = Color(0xFFBCBCBC)
 
 val White = Color(0xFFFFFFFF)
 val Black = Color(0xFF000000)
 
-val AppColors = lightColors(
-    primary = Red,
-    primaryVariant = RedDark,
+val AppColors = lightColorScheme(
+    primary = Green,
+    primaryContainer = GreenDark,
     secondary = Grey,
-    secondaryVariant = GreyDark,
+    secondaryContainer = GreyLight,
     onPrimary = White,
     onSecondary = Black
 )
