@@ -5,7 +5,7 @@ plugins {
 
 kotlin {
     android()
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -17,13 +17,19 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting
-        val commonTest by getting {
+        val commonMain by getting {
             dependencies {
-                implementation(kotlin("test"))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
             }
         }
-        val androidMain by getting
+        val commonTest by getting
+        val androidMain by getting {
+            dependencies {
+                //Firebase Remote Config
+                implementation("com.google.firebase:firebase-config-ktx:21.2.0")
+                implementation("com.google.firebase:firebase-analytics-ktx:21.2.0")
+            }
+        }
         val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting

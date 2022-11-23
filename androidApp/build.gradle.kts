@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -40,4 +41,8 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.1.0-alpha02")
     implementation("androidx.activity:activity-compose:1.5.1")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+
+    //Firebase Remote Config
+    implementation("com.google.firebase:firebase-config-ktx:21.2.0")
+    implementation("com.google.firebase:firebase-analytics-ktx:21.2.0")
 }
