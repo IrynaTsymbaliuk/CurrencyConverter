@@ -19,15 +19,16 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+                // Coroutines
+                implementation(AppDependencies.kotlinCoroutines)
             }
         }
         val commonTest by getting
         val androidMain by getting {
             dependencies {
-                //Firebase Remote Config
-                implementation("com.google.firebase:firebase-config-ktx:21.2.0")
-                implementation("com.google.firebase:firebase-analytics-ktx:21.2.0")
+                //Firebase
+                implementation(AppDependencies.firebaseConfigKtx)
+                implementation(AppDependencies.firebaseAnalytics)
             }
         }
         val androidTest by getting
@@ -54,9 +55,9 @@ kotlin {
 
 android {
     namespace = "com.tsymbaliuk.currency.converter"
-    compileSdk = 32
+    compileSdk = AppConfig.compileSdkVersion
     defaultConfig {
-        minSdk = 21
-        targetSdk = 32
+        minSdk = AppConfig.minSdkVersion
+        targetSdk = AppConfig.targetSdkVersion
     }
 }
