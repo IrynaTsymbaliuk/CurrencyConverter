@@ -1,19 +1,23 @@
 package com.tsymbaliuk.currency.converter.di
 
-import com.tsymbaliuk.currency.converter.NetworkConstants
-import com.tsymbaliuk.currency.converter.RemoteConfig
+import com.tsymbaliuk.currency.converter.network.datasource.FirebaseNetworkDataSource
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 
+/**
+ * Header key for access to CurrencyLayer API
+ */
+private const val HEADER_KEY = "apikey"
+
 class CommonModule {
 
     fun providesHttpClient(): HttpClient {
         return HttpClient {
             defaultRequest {
-                header(NetworkConstants.HEADER_KEY, RemoteConfig().getApiKey())
+                header(HEADER_KEY, FirebaseNetworkDataSource().getApiKey())
             }
             install(HttpTimeout) {
                 connectTimeoutMillis = 6_000

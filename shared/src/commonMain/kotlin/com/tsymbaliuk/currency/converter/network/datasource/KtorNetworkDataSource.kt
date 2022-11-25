@@ -1,9 +1,14 @@
 package com.tsymbaliuk.currency.converter.network.datasource
 
-import com.tsymbaliuk.currency.converter.NetworkConstants.CURRENCY_LIST_PATH
 import com.tsymbaliuk.currency.converter.di.CommonModule
 import com.tsymbaliuk.currency.converter.network.model.CurrencyListResponse
 import io.ktor.client.request.*
+
+/**
+ * URL paths for CurrencyLayer API work
+ */
+private const val BASE_URL = "https://api.apilayer.com/currency_data/"
+private const val CURRENCY_LIST_PATH = BASE_URL + "list"
 
 /**
  * A full list of supported currencies can be accessed both in JSON Format.
