@@ -47,4 +47,8 @@ dependencies {
     // Firebase
     implementation(AppDependencies.firebaseConfigKtx)
     implementation(AppDependencies.firebaseAnalytics)
+
+    //Coroutines
+    implementation(AppDependencies.kotlinCoroutines)
+
 }

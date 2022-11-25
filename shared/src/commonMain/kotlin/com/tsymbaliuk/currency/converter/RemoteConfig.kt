@@ -1,10 +1,8 @@
 package com.tsymbaliuk.currency.converter
 
-import kotlinx.coroutines.flow.Flow
-
 expect class RemoteConfig() {
 
-    fun getApiKey(): Flow<String>
+    fun getApiKey(parameterName: String = NetworkConstants.FIREBASE_REMOTE_CONFIG_API_KEY): String
 
 }
 
