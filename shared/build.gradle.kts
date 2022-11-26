@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    kotlin("plugin.serialization").version("1.7.10")
 }
 
 kotlin {
@@ -21,6 +22,9 @@ kotlin {
             dependencies {
                 // Coroutines
                 implementation(AppDependencies.kotlinCoroutines)
+                // Ktor
+                implementation(AppDependencies.ktorCore)
+                implementation(AppDependencies.ktorSerialization)
             }
         }
         val commonTest by getting
@@ -29,6 +33,8 @@ kotlin {
                 //Firebase
                 implementation(AppDependencies.firebaseConfigKtx)
                 implementation(AppDependencies.firebaseAnalytics)
+                //Ktor
+                implementation(AppDependencies.ktorOkhttp)
             }
         }
         val androidTest by getting

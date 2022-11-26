@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -24,119 +23,62 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tsymbaliuk.currency.converter.android.R
 import com.tsymbaliuk.currency.converter.android.ui.theme.*
+import com.tsymbaliuk.currency.converter.model.Currency
 
-@Preview
 @Composable
-fun BackLayerContent(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(AppColors.primary),
-        verticalArrangement = Arrangement.SpaceEvenly
-    ) {
-        Tittle(modifier = Modifier)
-        CurrencyRow(modifier = Modifier)
-    }
-}
-
-@Preview
-@Composable
-fun SwapButton(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier
-            .padding(paddingMedium)
-            .width(120.dp)
-            .height(48.dp)
-            .clip(AppShapes.medium)
-            .background(AppColors.secondary)
-            .clickable { }
-    ) {
-        Icon(
-            painter = painterResource(id = R.drawable.ic_round_swap_vert_24),
-            contentDescription = stringResource(id = R.string.swap),
-            modifier = Modifier
-                .size(24.dp)
-                .align(Alignment.Center),
-            tint = Black
-        )
-    }
-}
-
-@Preview
-@Composable
-fun FrontLayerContent(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .clip(AppShapes.large)
-            .background(GreyLight)
-    ) {
-        CurrencyRow(modifier = Modifier)
-    }
-
-}
-
-@Preview
-@Composable
-private fun Tittle(
-    modifier: Modifier = Modifier
-) {
-    Text(
-        modifier = modifier.padding(paddingMedium),
-        text = stringResource(id = R.string.currency_converter),
-        color = AppColors.secondary,
-        style = AppTypography.displaySmall
-    )
-}
-
-@Preview
-@Composable
-private fun CurrencyRow(
-    modifier: Modifier = Modifier
+fun CurrencyRow(
+    modifier: Modifier = Modifier,
+    selectedCurrency: Currency?,
+    currencyList: List<Currency>,
+    onCurrencySelect: (Currency) -> Unit
 ) {
     Row(
         modifier = modifier.padding(paddingMedium),
         horizontalArrangement = Arrangement.spacedBy(paddingSmall)
     ) {
-        CountryCode(modifier = Modifier.weight(1f))
-        Amount(modifier = Modifier.weight(2f))
+        CurrencyCode(
+            modifier = Modifier.weight(1f),
+            selectedCurrency = selectedCurrency,
+            currencyList = currencyList,
+            onCurrencySelect = onCurrencySelect
+        )
+        Amount(
+            modifier = Modifier.weight(2f)
+        )
     }
 }
 
-@Preview
 @Composable
-private fun CountryCode(
+private fun CurrencyCode(
     modifier: Modifier = Modifier,
-    items: List<String> = testCountryCodeList
+    selectedCurrency: Currency?,
+    currencyList: List<Currency>,
+    onCurrencySelect: (Currency) -> Unit
 ) {
+
+    var expanded by remember { mutableStateOf(false) }
+
     Column(
         modifier = modifier
+            .clickable { expanded = !expanded }
     ) {
+
         Text(
-            text = stringResource(id = R.string.country_code),
+            text = stringResource(id = R.string.currency_code),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(paddingExtraSmall),
-            color = Black,
+            color = AppColors.onSecondary,
             style = AppTypography.labelMedium,
             textAlign = TextAlign.Start
         )
-
-        var selectedIndex by remember { mutableStateOf(0) }
-        var expanded by remember { mutableStateOf(false) }
-
         Row(
             modifier = Modifier
+                .align(Alignment.CenterHorizontally)
                 .fillMaxWidth()
                 .height(64.dp)
                 .clip(AppShapes.medium)
-                .background(AppColors.primaryContainer)
-                .align(Alignment.CenterHorizontally)
-                .clickable { expanded = !expanded },
+                .background(AppColors.primaryContainer),
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
@@ -144,15 +86,15 @@ private fun CountryCode(
                     .wrapContentSize()
                     .align(Alignment.CenterVertically),
                 style = AppTypography.bodyLarge,
-                text = items[selectedIndex],
-                color = White
+                text = selectedCurrency?.code ?: "",
+                color = AppColors.onPrimary
             )
             Icon(
                 imageVector = Icons.Filled.ArrowDropDown,
-                contentDescription = null,
+                contentDescription = stringResource(id = if (expanded) R.string.close else R.string.expand),
                 modifier = Modifier
-                    .align(Alignment.CenterVertically)
-                    .rotate(if (expanded) 180f else 0f),
+                    .rotate(if (expanded) 0f else 180f)
+                    .align(Alignment.CenterVertically),
                 tint = AppColors.onPrimary
             )
             DropdownMenu(
@@ -161,13 +103,13 @@ private fun CountryCode(
                     expanded = false
                 }
             ) {
-                items.forEach { selectionOption ->
+                currencyList.forEach { selectionOption ->
                     DropdownMenuItem(
                         onClick = {
-                            selectedIndex = items.indexOf(selectionOption)
                             expanded = false
+                            onCurrencySelect(selectionOption)
                         },
-                        text = { Text(text = selectionOption) }
+                        text = { Text(text = selectionOption.code) }
                     )
                 }
             }
@@ -175,7 +117,6 @@ private fun CountryCode(
     }
 }
 
-@Preview
 @Composable
 private fun Amount(
     modifier: Modifier = Modifier
@@ -209,9 +150,10 @@ private fun Amount(
                 textStyle = AppTypography.bodyLarge,
                 leadingIcon = {
                     Text(
+                        modifier = Modifier.wrapContentSize(),
+                        style = AppTypography.bodyLarge,
                         text = "$",
-                        color = AppColors.onPrimary,
-                        style = AppTypography.bodyLarge
+                        color = AppColors.onPrimary
                     )
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -227,12 +169,28 @@ private fun Amount(
     }
 }
 
-private val testCountryCodeList =
-    listOf(
-        "ALL",
-        "AFN",
-        "ARS",
-        "AWG",
-        "AUD",
-        "AZN"
+@Preview
+@Composable
+private fun CurrencyRowPreview() {
+    CurrencyRow(
+        selectedCurrency = null,
+        currencyList = emptyList(),
+        onCurrencySelect = { }
     )
+}
+
+@Preview
+@Composable
+private fun CurrencyCodePreview() {
+    CurrencyCode(
+        selectedCurrency = null,
+        currencyList = emptyList(),
+        onCurrencySelect = { }
+    )
+}
+
+@Preview
+@Composable
+private fun AmountPreview() {
+    Amount()
+}

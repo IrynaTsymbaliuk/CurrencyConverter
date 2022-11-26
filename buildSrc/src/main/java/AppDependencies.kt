@@ -16,6 +16,9 @@ object AppDependencies {
     // Google Service
     val googleService by lazy { "com.google.gms:google-services:${Versions.googleService}" }
 
+    // Ktor
+    val ktorOkhttp by lazy { "io.ktor:ktor-client-okhttp:${Versions.ktor}" }
+
     // common for android and ios
 
     // Coroutines
@@ -24,5 +27,9 @@ object AppDependencies {
     // Firebase
     val firebaseConfigKtx by lazy { "com.google.firebase:firebase-config-ktx:${Versions.firebaseKtx}" }
     val firebaseAnalytics by lazy { "com.google.firebase:firebase-analytics-ktx:${Versions.firebaseKtx}" }
+
+    // Ktor
+    val ktorCore by lazy { "io.ktor:ktor-client-core:${Versions.ktor}" }
+    val ktorSerialization by lazy { "io.ktor:ktor-client-serialization:${Versions.ktor}" }
 
 }

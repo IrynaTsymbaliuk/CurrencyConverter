@@ -19,5 +19,6 @@ object Versions {
     //  common for android and ios
     const val kotlinCoroutines = "1.6.4"
     const val firebaseKtx = "21.2.0"
+    const val ktor = "1.6.8"
 
 }
