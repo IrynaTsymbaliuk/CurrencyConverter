@@ -18,9 +18,11 @@ import com.tsymbaliuk.currency.converter.android.ui.theme.AppShapes
 import com.tsymbaliuk.currency.converter.android.ui.theme.Black
 import com.tsymbaliuk.currency.converter.android.ui.theme.paddingMedium
 
-@Preview
 @Composable
-fun SwapButton(modifier: Modifier = Modifier) {
+fun SwapButton(
+    modifier: Modifier = Modifier,
+    swap: () -> Unit
+) {
     Box(
         modifier = modifier
             .padding(paddingMedium)
@@ -28,7 +30,7 @@ fun SwapButton(modifier: Modifier = Modifier) {
             .height(48.dp)
             .clip(AppShapes.medium)
             .background(AppColors.secondary)
-            .clickable { }
+            .clickable { swap() }
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_round_swap_vert_24),
@@ -39,4 +41,10 @@ fun SwapButton(modifier: Modifier = Modifier) {
             tint = Black
         )
     }
+}
+
+@Preview
+@Composable
+private fun SwapButtonPreview() {
+    SwapButton { }
 }

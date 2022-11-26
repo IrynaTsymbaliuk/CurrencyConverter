@@ -14,11 +14,14 @@ import com.tsymbaliuk.currency.converter.android.R
 import com.tsymbaliuk.currency.converter.android.ui.theme.AppColors
 import com.tsymbaliuk.currency.converter.android.ui.theme.AppTypography
 import com.tsymbaliuk.currency.converter.android.ui.theme.paddingMedium
+import com.tsymbaliuk.currency.converter.model.Currency
 
-@Preview
 @Composable
 fun BackLayerContent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    selectedFromCurrency: Currency?,
+    currencyList: List<Currency>,
+    onFromCurrencySelect: (Currency) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -26,20 +29,27 @@ fun BackLayerContent(
             .background(AppColors.primary),
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        Tittle(modifier = Modifier)
-        CurrencyRow(modifier = Modifier)
+        Text(
+            modifier = Modifier.padding(paddingMedium),
+            text = stringResource(id = R.string.currency_converter),
+            color = AppColors.secondary,
+            style = AppTypography.displaySmall
+        )
+        CurrencyRow(
+            selectedCurrency = selectedFromCurrency,
+            currencyList = currencyList,
+            onCurrencySelect = { onFromCurrencySelect(it) }
+        )
     }
 }
 
 @Preview
 @Composable
-private fun Tittle(
-    modifier: Modifier = Modifier
-) {
-    Text(
-        modifier = modifier.padding(paddingMedium),
-        text = stringResource(id = R.string.currency_converter),
-        color = AppColors.secondary,
-        style = AppTypography.displaySmall
+private fun BackLayerContentPreview() {
+    BackLayerContent(
+        selectedFromCurrency = null,
+        currencyList = emptyList(),
+        onFromCurrencySelect = {}
     )
 }
+

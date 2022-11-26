@@ -9,11 +9,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import com.tsymbaliuk.currency.converter.android.ui.theme.AppShapes
 import com.tsymbaliuk.currency.converter.android.ui.theme.GreyLight
+import com.tsymbaliuk.currency.converter.model.Currency
 
-@Preview
 @Composable
 fun FrontLayerContent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    selectedToCurrency: Currency?,
+    currencyList: List<Currency>,
+    onToCurrencySelect: (Currency) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -21,7 +24,19 @@ fun FrontLayerContent(
             .clip(AppShapes.large)
             .background(GreyLight)
     ) {
-        CurrencyRow(modifier = Modifier)
+        CurrencyRow(
+            selectedCurrency = selectedToCurrency,
+            currencyList = currencyList,
+            onCurrencySelect = { onToCurrencySelect(it) })
     }
+}
 
+@Preview
+@Composable
+private fun FrontLayerContentPreview() {
+    FrontLayerContent(
+        selectedToCurrency = null,
+        currencyList = emptyList(),
+        onToCurrencySelect = { }
+    )
 }
