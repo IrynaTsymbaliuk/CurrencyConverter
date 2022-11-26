@@ -16,6 +16,15 @@ git clone https://github.com/IrynaTsymbaliuk/CurrencyConverter.git
 
 # Android development
 
+Language: 
 - Kotlin
-- Jetpack Compose
+
+Architecture:
+- MVI
+- Use cases
+
+Libs:
+- Coroutines
 - Firebase Remote Config
+- Ktor
+- Android Jetpack Compose
