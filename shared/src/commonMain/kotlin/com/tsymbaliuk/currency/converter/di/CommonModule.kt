@@ -1,21 +1,27 @@
 package com.tsymbaliuk.currency.converter.di
 
 import com.tsymbaliuk.currency.converter.network.datasource.FirebaseNetworkDataSource
+import com.tsymbaliuk.currency.converter.network.datasource.KtorNetworkDataSource
+import com.tsymbaliuk.currency.converter.network.datasource.NetworkDataSource
+import com.tsymbaliuk.currency.converter.repository.CurrencyRepository
+import com.tsymbaliuk.currency.converter.repository.CurrencyRepositoryImpl
+import com.tsymbaliuk.currency.converter.usecase.UseCaseProvider
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
+import org.koin.dsl.module
 
 /**
  * Header key for access to CurrencyLayer API
  */
 private const val HEADER_KEY = "apikey"
 
-class CommonModule {
+val commonModule = module {
 
-    fun providesHttpClient(): HttpClient {
-        return HttpClient {
+    single {
+        HttpClient {
             defaultRequest {
                 header(HEADER_KEY, FirebaseNetworkDataSource().getApiKey())
             }
@@ -31,6 +37,14 @@ class CommonModule {
                 })
             }
         }
+    }
+
+    single<NetworkDataSource> { KtorNetworkDataSource(get()) }
+
+    single<CurrencyRepository> { CurrencyRepositoryImpl(get()) }
+
+    factory {
+        UseCaseProvider()
     }
 
 }

@@ -2,7 +2,11 @@ package com.tsymbaliuk.currency.converter.android.ui.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -13,12 +17,13 @@ import com.tsymbaliuk.currency.converter.android.ui.theme.AppColors
 import com.tsymbaliuk.currency.converter.model.Currency
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.getViewModel
 
 @Preview
 @Composable
 fun HomeScreen() {
 
-    val viewModel = HomeViewModel()
+    val viewModel = getViewModel<HomeViewModel>()
     val state by viewModel.uiStateStream.collectAsState()
     val scope = rememberCoroutineScope()
 
@@ -86,7 +91,7 @@ fun HomeScreen() {
 
 private fun onScreenLaunch(
     scope: CoroutineScope,
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
 ) {
     scope.launch {
         viewModel.userIntent.send(HomeIntent.GetCurrencyList)
@@ -96,14 +101,14 @@ private fun onScreenLaunch(
 private fun onFromCurrencySelected(
     scope: CoroutineScope,
     viewModel: HomeViewModel,
-    item: Currency
+    item: Currency,
 ) {
     scope.launch { viewModel.userIntent.send(HomeIntent.SelectFromCurrency(item)) }
 }
 
 private fun onSwapButtonClick(
     scope: CoroutineScope,
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
 ) {
     scope.launch { viewModel.userIntent.send(HomeIntent.Swap) }
 }
@@ -111,7 +116,7 @@ private fun onSwapButtonClick(
 private fun onToCurrencySelected(
     scope: CoroutineScope,
     viewModel: HomeViewModel,
-    item: Currency
+    item: Currency,
 ) {
     scope.launch { viewModel.userIntent.send(HomeIntent.SelectToCurrency(item)) }
 }

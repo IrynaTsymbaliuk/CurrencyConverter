@@ -1,7 +1,7 @@
 package com.tsymbaliuk.currency.converter.network.datasource
 
-import com.tsymbaliuk.currency.converter.di.CommonModule
 import com.tsymbaliuk.currency.converter.network.model.CurrencyListResponse
+import io.ktor.client.*
 import io.ktor.client.request.*
 
 /**
@@ -28,11 +28,11 @@ private const val CURRENCY_LIST_PATH = BASE_URL + "list"
  * More: https://currencylayer.com/documentation
  */
 
-class KtorNetworkDataSource {
+class KtorNetworkDataSource(
+    private val client: HttpClient,
+) : NetworkDataSource {
 
-    private val client = CommonModule().providesHttpClient()
-
-    suspend fun getCurrencyList(): CurrencyListResponse {
+    override suspend fun getCurrencyList(): CurrencyListResponse {
         return client.get {
             url(CURRENCY_LIST_PATH)
         }

@@ -13,11 +13,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel(), MviViewModel<HomeIntent, HomeState> {
+class HomeViewModel(
+    private val useCaseProvider: UseCaseProvider,
+) : ViewModel(), MviViewModel<HomeIntent, HomeState> {
 
     val userIntent = Channel<HomeIntent>(Channel.UNLIMITED)
-
-    private val currencyList = UseCaseProvider().getCurrencyList
 
     private val _uiStateStream: MutableStateFlow<HomeState> =
         MutableStateFlow(
@@ -51,7 +51,7 @@ class HomeViewModel : ViewModel(), MviViewModel<HomeIntent, HomeState> {
     private fun getCurrencyList() {
         viewModelScope.launch {
             _uiStateStream.emit(_uiStateStream.value.copy(isLoading = true))
-            val currencyList = currencyList.invoke()
+            val currencyList = useCaseProvider.getCurrencyList()
             if (currencyList.isNotEmpty()) {
                 _uiStateStream.emit(_uiStateStream.value.copy(currencyList = currencyList))
             }

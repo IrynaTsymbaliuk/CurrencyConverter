@@ -25,15 +25,17 @@ kotlin {
                 // Ktor
                 implementation(AppDependencies.ktorCore)
                 implementation(AppDependencies.ktorSerialization)
+                // Koin
+                implementation(AppDependencies.koinCore)
             }
         }
         val commonTest by getting
         val androidMain by getting {
             dependencies {
-                //Firebase
+                // Firebase
                 implementation(AppDependencies.firebaseConfigKtx)
                 implementation(AppDependencies.firebaseAnalytics)
-                //Ktor
+                // Ktor
                 implementation(AppDependencies.ktorOkhttp)
             }
         }
