@@ -21,6 +21,7 @@ git clone https://github.com/IrynaTsymbaliuk/CurrencyConverter.git
 ## Built With 🛠
 - [Kotlin](https://kotlinlang.org/) - A modern programming language
 that makes developers happier.
+- [Koin](https://insert-koin.io/) - A lightweight pure Kotlin library for dependency injection.
 - [Ktor](https://ktor.io/) - Multiplatform asynchronous HTTP client built on Kotlin and Coroutines.
 - [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - For asynchronous work.
 - [Flow](https://kotlinlang.org/docs/reference/coroutines/flow.html) - A flow is an asynchronous version of a Sequence, a type of collection whose values are lazily produced.
@@ -31,11 +32,18 @@ that makes developers happier.
 
 <br/>
 
+## Architecture 📐
+
+<img src="https://user-images.githubusercontent.com/42023359/207277698-671bb9ef-0a46-4c92-991d-12db623a9375.svg" />
+
+<br/>
+
 ## Package Structure 📦 
     
     com.tsymbaliuk.currency.converter # Root
 
-    ├── android                       # AndroidApp                  
+    ├── android                       # AndroidApp
+        ├── di                        # Android module for DI
         ├── mvi                       # MVI related code
         │   ├── base                  # Base MVI interfaces
         │   ├── home                  # MVI components for Home screen
@@ -51,7 +59,7 @@ that makes developers happier.
         │   ├── network.datasource    # Android actual implementation for network datasources 
 
         ├── commonMain                # Code that works on both platforms, including the expect declarations
-        |   ├── di                    # Hilt module (WIP)
+        |   ├── di                    # Common module for DI
         |   ├── model                 # External representation models
         |   ├── network               # Network related code
         |   |    ├── datasource       # Remote datasources (Firebase, Ktor client) and expect declarations
