@@ -25,6 +25,8 @@ kotlin {
                 // Ktor
                 implementation(AppDependencies.ktorCore)
                 implementation(AppDependencies.ktorSerialization)
+                // Koin
+                implementation(AppDependencies.koinCore)
             }
         }
         val commonTest by getting

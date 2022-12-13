@@ -51,4 +51,8 @@ dependencies {
     //Coroutines
     implementation(AppDependencies.kotlinCoroutines)
 
+    // Koin
+    implementation(AppDependencies.koinAndroid)
+    implementation(AppDependencies.koinCompose)
+
 }

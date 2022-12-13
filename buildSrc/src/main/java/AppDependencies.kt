@@ -19,6 +19,10 @@ object AppDependencies {
     // Ktor
     val ktorOkhttp by lazy { "io.ktor:ktor-client-okhttp:${Versions.ktor}" }
 
+    // Koin
+    val koinAndroid by lazy { "io.insert-koin:koin-android:${Versions.koin}" }
+    val koinCompose by lazy { "io.insert-koin:koin-androidx-compose:${Versions.koin}" }
+
     // common for android and ios
 
     // Coroutines
@@ -31,5 +35,8 @@ object AppDependencies {
     // Ktor
     val ktorCore by lazy { "io.ktor:ktor-client-core:${Versions.ktor}" }
     val ktorSerialization by lazy { "io.ktor:ktor-client-serialization:${Versions.ktor}" }
+
+    // Koin
+    val koinCore by lazy { "io.insert-koin:koin-core:${Versions.koin}" }
 
 }

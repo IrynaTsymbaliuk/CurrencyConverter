@@ -1,11 +1,12 @@
 package com.tsymbaliuk.currency.converter.usecase
 
 import com.tsymbaliuk.currency.converter.repository.CurrencyRepository
-import com.tsymbaliuk.currency.converter.repository.FakeCurrencyRepositoryImpl
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class UseCaseProvider {
+class UseCaseProvider : KoinComponent {
 
-    private val currencyRepository: CurrencyRepository = FakeCurrencyRepositoryImpl()
+    private val currencyRepository: CurrencyRepository by inject()
 
     val getCurrencyList: GetCurrencyList
         get() = GetCurrencyList(currencyRepository)
