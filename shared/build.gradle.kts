@@ -32,10 +32,10 @@ kotlin {
         val commonTest by getting
         val androidMain by getting {
             dependencies {
-                //Firebase
+                // Firebase
                 implementation(AppDependencies.firebaseConfigKtx)
                 implementation(AppDependencies.firebaseAnalytics)
-                //Ktor
+                // Ktor
                 implementation(AppDependencies.ktorOkhttp)
             }
         }

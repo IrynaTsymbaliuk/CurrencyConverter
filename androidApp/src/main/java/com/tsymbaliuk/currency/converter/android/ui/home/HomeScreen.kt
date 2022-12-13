@@ -91,7 +91,7 @@ fun HomeScreen() {
 
 private fun onScreenLaunch(
     scope: CoroutineScope,
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
 ) {
     scope.launch {
         viewModel.userIntent.send(HomeIntent.GetCurrencyList)
@@ -101,14 +101,14 @@ private fun onScreenLaunch(
 private fun onFromCurrencySelected(
     scope: CoroutineScope,
     viewModel: HomeViewModel,
-    item: Currency
+    item: Currency,
 ) {
     scope.launch { viewModel.userIntent.send(HomeIntent.SelectFromCurrency(item)) }
 }
 
 private fun onSwapButtonClick(
     scope: CoroutineScope,
-    viewModel: HomeViewModel
+    viewModel: HomeViewModel,
 ) {
     scope.launch { viewModel.userIntent.send(HomeIntent.Swap) }
 }
@@ -116,7 +116,7 @@ private fun onSwapButtonClick(
 private fun onToCurrencySelected(
     scope: CoroutineScope,
     viewModel: HomeViewModel,
-    item: Currency
+    item: Currency,
 ) {
     scope.launch { viewModel.userIntent.send(HomeIntent.SelectToCurrency(item)) }
 }

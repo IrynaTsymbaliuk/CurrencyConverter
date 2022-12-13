@@ -7,12 +7,16 @@ import com.tsymbaliuk.currency.converter.android.di.androidModule
 import com.tsymbaliuk.currency.converter.di.commonModule
 import org.koin.core.context.startKoin
 
-class App: Application() {
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Firebase.initialize(applicationContext)
+        initFirebase()
         initKoin()
+    }
+
+    private fun initFirebase() {
+        Firebase.initialize(applicationContext)
     }
 
     private fun initKoin() {

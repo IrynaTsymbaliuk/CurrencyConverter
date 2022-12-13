@@ -48,7 +48,7 @@ dependencies {
     implementation(AppDependencies.firebaseConfigKtx)
     implementation(AppDependencies.firebaseAnalytics)
 
-    //Coroutines
+    // Coroutines
     implementation(AppDependencies.kotlinCoroutines)
 
     // Koin
